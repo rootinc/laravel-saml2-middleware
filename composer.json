@@ -1,0 +1,29 @@
+{
+    "name": "rootinc/laravel-saml2-middleware",
+    "description": "Saml2 Middleware Auth",
+    "type": "library",
+    "require": {
+        "php": ">=5.6.4",
+        "laravel/framework": ">=5.4.0",
+        "onelogin/php-saml": "^3.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Root Inc",
+            "email": "djewett@rootinc.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "RootInc\\LaravelSaml2Middleware\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RootInc\\LaravelSaml2Middleware\\Saml2ServiceProvider"
+            ]
+        }
+    }
+}
