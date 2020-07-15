@@ -14,6 +14,16 @@ class Saml2
     protected $login_route = "/login";
 
     /**
+     * Creates a loginProvider
+     *
+     * @return self
+     */
+    public function __construct()
+    {
+        \OneLogin\Saml2\Utils::setProxyVars($this->getConfig()['proxyVars']);
+    }
+
+    /**
      * Handle an incoming request
      *
      * @param \Illuminate\Http\Request $request

@@ -9,7 +9,7 @@ Provides Saml2 Authentication Middleware for a Laravel App.
 3. In our routes folder (most likely `web.php`), add
 ```php
 Route::get('/login/saml2', '\RootInc\LaravelSaml2Middleware\Saml2@saml2');
-Route::get('/login/saml2callback', '\RootInc\LaravelSaml2Middleware\Saml2@saml2callback');
+Route::post('/login/saml2callback', '\RootInc\LaravelSaml2Middleware\Saml2@saml2callback');
 ```
 
 4. In our `App\Http\Kernel.php` add `'saml2' => \RootInc\LaravelSaml2Middleware\Saml2::class,` most likely to the `$routeMiddleware` array.
@@ -70,9 +70,9 @@ The above gives us a way to add/update users after a successful handshake.  `$p
 
 ```php
 Route::get('/login/saml2', '\App\Http\Middleware\AppSaml2@saml2');
-Route::get('/login/saml2callback', '\App\Http\Middleware\AppSaml2@saml2callback');
+Route::post('/login/saml2callback', '\App\Http\Middleware\AppSaml2@saml2callback');
 Route::get('/logout/saml2', '\App\Http\Middleware\AppSaml2@saml2logout');
-Route::get('/logout/logoutcallback', '\App\Http\Middleware\AppSaml2@saml2logout');
+Route::post('/logout/logoutcallback', '\App\Http\Middleware\AppSaml2@saml2logout');
 ```
 
 4. Finally, update `Kernel.php`'s `saml2` key to be `'saml2' => \App\Http\Middleware\AppSaml2::class,`
