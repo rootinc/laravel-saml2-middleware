@@ -26,7 +26,7 @@ Route::post('/login/saml2callback', '\RootInc\LaravelSaml2Middleware\Saml2@saml2
 
 `Route::get('/logout/saml2', '\RootInc\LaravelSaml2Middleware\Saml2@saml2logout');` First parameter can be whatever you want to route after your callback.  Change as you would like.
 
-`Route::post('/logout/saml2callback', '\RootInc\LaravelSaml2Middleware\Saml2@logoutcallback');` First parameter can be whatever you want to route after your callback.  Change as you would like.
+`Route::post('/logout/logoutcallback', '\RootInc\LaravelSaml2Middleware\Saml2@logoutcallback');` First parameter can be whatever you want to route after your callback.  Change as you would like.
 
 ## Extended Installation
 
@@ -72,7 +72,7 @@ The above gives us a way to add/update users after a successful handshake.  `$p
 Route::get('/login/saml2', '\App\Http\Middleware\AppSaml2@saml2');
 Route::post('/login/saml2callback', '\App\Http\Middleware\AppSaml2@saml2callback');
 Route::get('/logout/saml2', '\App\Http\Middleware\AppSaml2@saml2logout');
-Route::post('/logout/logoutcallback', '\App\Http\Middleware\AppSaml2@saml2logout');
+Route::post('/logout/logoutcallback', '\App\Http\Middleware\AppSaml2@logoutcallback');
 ```
 
 4. Finally, update `Kernel.php`'s `saml2` key to be `'saml2' => \App\Http\Middleware\AppSaml2::class,`
