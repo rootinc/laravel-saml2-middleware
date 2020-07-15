@@ -1,6 +1,6 @@
 <?php
 
-namespace RootInc\LaravelAzureMiddleware;
+namespace RootInc\LaravelSaml2Middleware;
 
 use Illuminate\Support\ServiceProvider;
 
