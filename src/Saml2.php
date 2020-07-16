@@ -115,8 +115,7 @@ class Saml2
      */
     public function saml2callback(Request $request)
     {
-        // @todo: remove $request
-        $auth = $this->getAuth($request);
+        $auth = $this->getAuth();
 
         $auth->processResponse();
         $errors = $auth->getErrors();
@@ -128,6 +127,7 @@ class Saml2
 
         if (!empty($errors))
         {
+            $errors[] = $auth->getLastErrorReason();
             return $this->fail($request, $errors);
         }
 
