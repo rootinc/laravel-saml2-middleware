@@ -1,6 +1,6 @@
 # Laravel Saml2 Middleware
 
-Provides Saml2 Authentication Middleware for a Laravel App.
+Provides Saml2 Authentication Middleware for a Laravel App.  If you like this, checkout <a href="https://github.com/rootinc/laravel-azure-middleware">Laravel Azure Middleware</a>
 
 ## Normal Installation
 
