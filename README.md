@@ -99,7 +99,7 @@ As of v0.2.0, we added options for overriding the default behavior for the servi
 * `SAML2_SP_NAME_ID_FORMAT` defaults to `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`
 * `SAML2_SP_ENTITY_ID` defaults to `url("/saml2/metadata")`
 * `SAML2_SP_SSO` defaults to `url("/login/saml2callback")`
-* `SAML2_SP_SLO` defaults to `url("logout/saml2callback")`
+* `SAML2_SP_SLO` defaults to `url("/logout/saml2callback")`
 
 It's important that if we are not following the naming conventions of the readme, that we update these `SP` values.
 

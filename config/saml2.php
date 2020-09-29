@@ -72,7 +72,7 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | SP SLO (defaults to url("logout/saml2callback"))
+        | SP SLO (defaults to url("/logout/saml2callback"))
         |--------------------------------------------------------------------------
         |
         | URL Location where the <Response> from the IdP will be returned,

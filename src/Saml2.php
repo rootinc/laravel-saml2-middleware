@@ -342,7 +342,7 @@ class Saml2
                 'singleLogoutService' => [
                     // URL Location where the <Response> from the IdP will be returned,
                     // using HTTP-Redirect binding.
-                    'url' => config('saml2.sp.slo', url("logout/saml2callback")),
+                    'url' => config('saml2.sp.slo', url("/logout/saml2callback")),
                 ],
             ],
 
