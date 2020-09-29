@@ -71,6 +71,30 @@ class Saml2
     }
 
     /**
+     * Get the metadata for a SP
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
+    public function saml2metadata(Request $request)
+    {
+        $auth = $this->getAuth();
+        $settings = $auth->getSettings();
+        $metadata = $settings->getSPMetadata();
+        $errors = $settings->validateMetadata($metadata);
+
+        if (empty($errors))
+        {
+            return response($metadata, 200, ['Content-Type' => 'text/xml']);
+        }
+        else
+        {
+            throw new \Exception('Invalid SP metadata: ' . implode(', ', $errors));
+        }
+    }
+
+    /**
      * Gets the saml2 url
      *
      * @param string $email = null
@@ -284,7 +308,7 @@ class Saml2
             // e.g X-Forwarded-Proto / HTTP_X_FORWARDED_PROTO. This is useful if
             // your application is running behind a load balancer which terminates
             // SSL.
-            'proxyVars' => true, //this is on Heroku, we can assume this to be true for all
+            'proxyVars' => config('saml2.proxy_vars', true), //this is on Heroku, we can assume this to be true for all
 
             // Service Provider Data that we are deploying
             // NOTE - these are settings that should be set on the SP
@@ -294,7 +318,8 @@ class Saml2
                 // Specifies constraints on the name identifier to be used to
                 // represent the requested subject.
                 // Take a look on lib/Saml2/Constants.php to see the NameIdFormat supported
-                'NameIDFormat' => 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent',
+                'NameIDFormat' => config('saml2.sp.name_id_format', 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent'),
+                //'NameIDFormat' => config('saml2.sp_name_id_formats', url("/saml2/metadata")),
 
                 // Usually x509cert and privateKey of the SP are provided by files placed at
                 // the certs folder. But we can also provide them with the following parameters
@@ -303,14 +328,14 @@ class Saml2
 
                 // Identifier (URI) of the SP entity.
                 // Leave blank to use the 'saml_metadata' route.
-                'entityId' => url("/saml2/metadata"),
+                'entityId' => config('saml2.sp.entity_id', url("/saml2/metadata")),
 
                 // Specifies info about where and how the <AuthnResponse> message MUST be
                 // returned to the requester, in this case our SP.
                 'assertionConsumerService' => [
                     // URL Location where the <Response> from the IdP will be returned,
                     // using HTTP-POST binding.
-                    'url' => url("/login/callback"),
+                    'url' => config('saml2.sp.sso', url("/login/saml2callback")),
                 ],
                 // Specifies info about where and how the <Logout Response> message MUST be
                 // returned to the requester, in this case our SP.
@@ -318,33 +343,33 @@ class Saml2
                 'singleLogoutService' => [
                     // URL Location where the <Response> from the IdP will be returned,
                     // using HTTP-Redirect binding.
-                    'url' => url("logout/callback"),
+                    'url' => config('saml2.sp.slo', url("logout/saml2callback")),
                 ],
             ],
 
             // Identity Provider Data that we want connect with our SP
             'idp' => [
                 // Identifier of the IdP entity  (must be a URI)
-                'entityId' => config('saml2.idp_entity_id'),
+                'entityId' => config('saml2.idp.entity_id'),
                 // SSO endpoint info of the IdP. (Authentication Request protocol)
                 'singleSignOnService' => [
                     // URL Target of the IdP where the SP will send the Authentication Request Message,
                     // using HTTP-Redirect binding.
-                    'url' => config('saml2.idp_sso'),
+                    'url' => config('saml2.idp.sso'),
                 ],
                 // SLO endpoint info of the IdP.
                 'singleLogoutService' => [
                     // URL Location of the IdP where the SP will send the SLO Request,
                     // using HTTP-Redirect binding.
-                    'url' => config('saml2.idp_slo'),
+                    'url' => config('saml2.idp.slo'),
                 ],
                 // Public x509 certificate of the IdP
-                'x509cert' => config('saml2.idp_x509'),
+                'x509cert' => config('saml2.idp.x509'),
                 /*
                  *  Instead of use the whole x509cert you can use a fingerprint
                  *  (openssl x509 -noout -fingerprint -in "idp.crt" to generate it)
                  */
-                'certFingerprint' => config('saml2.idp_cert_fingerprint'),
+                'certFingerprint' => config('saml2.idp.cert_fingerprint'),
             ],
         ];
     }
