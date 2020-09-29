@@ -13,20 +13,32 @@ Route::post('/login/saml2callback', '\RootInc\LaravelSaml2Middleware\Saml2@saml2
 ```
 
 4. In our `App\Http\Kernel.php` add `'saml2' => \RootInc\LaravelSaml2Middleware\Saml2::class,` most likely to the `$routeMiddleware` array.
-5. In our `.env` add `SAML2_STRICT, SAML2_IDP_ENTITYID, SAML2_IDP_SSO, SAML2_IDP_SLO and SAML2_IDP_x509`.
-6. In our `App\Http\Middleware\VerifyCsrfToken.php` add `'/login/saml2callback' //original saml2 didn't protect anything.  Since this is a POST for SAML2, the tokens will of course not match.  Thus, we need to ignore` to the `$except` array.
-7. Add the `saml2` middleware to your route groups on any routes that needs protected by auth and enjoy :tada:
-8. If you need custom callbacks, see [Extended Installation](#extended-installation).
+5. In our `.env` optionally add `SAML2_STRICT, SAML2_SAML2_PROXY_VARS`.  If not added, these values will default to true.
+6. In our `.env` add `SAML2_IDP_ENTITYID, SAML2_IDP_SSO, SAML2_IDP_SLO and SAML2_IDP_x509`.
+7. In our `.env` optionally add `SAML2_SP_NAME_ID_FORMAT, SAML2_SP_ENTITY_ID, SAML2_SP_SSO, SAML2_SP_SLO`.  These values are only required to override if the default config does not suffice.
+8. In our `App\Http\Middleware\VerifyCsrfToken.php` add `'/login/saml2callback' //original saml2 didn't protect anything.  Since this is a POST for SAML2, the tokens will of course not match.  Thus, we need to ignore` to the `$except` array.
+9. Add the `saml2` middleware to your route groups on any routes that needs protected by auth and enjoy :tada:
+10. If you need custom callbacks, see [Extended Installation](#extended-installation).
 
 ## Routing
 
-`Route::get('/login/saml2', '\RootInc\LaravelSaml2Middleware\Saml2@saml2');` First parameter can be wherever you want to route the saml2 login.  Change as you would like.
+`Route::get('/login/saml2', '\RootInc\LaravelSaml2Middleware\Saml2@saml2');` First parameter can be wherever you want to route the saml2 login.  * Change as you would like.
 
-`Route::post('/login/saml2callback', '\RootInc\LaravelSaml2Middleware\Saml2@saml2callback');` First parameter can be whatever you want to route after your callback.  Change as you would like.
+`Route::post('/login/saml2callback', '\RootInc\LaravelSaml2Middleware\Saml2@saml2callback');` First parameter can be whatever you want to route after your callback.  * Change as you would like.
 
-`Route::get('/logout/saml2', '\RootInc\LaravelSaml2Middleware\Saml2@saml2logout');` First parameter can be whatever you want to route after your callback.  Change as you would like.
+`Route::get('/logout/saml2', '\RootInc\LaravelSaml2Middleware\Saml2@saml2logout');` First parameter can be whatever you want to route after your callback.  * Change as you would like.
 
-`Route::post('/logout/logoutcallback', '\RootInc\LaravelSaml2Middleware\Saml2@logoutcallback');` First parameter can be whatever you want to route after your callback.  Change as you would like.
+`Route::post('/logout/logoutcallback', '\RootInc\LaravelSaml2Middleware\Saml2@logoutcallback');` First parameter can be whatever you want to route after your callback.  * Change as you would like.
+
+* Note - if we change these values, it is important to see [Service Provider Options Override](#service-provider-options-override)
+
+## Metadata
+
+As of of v0.2.0, we added the ability to get the metadata.  Simply add:
+
+`Route::get('/saml2/metadata', '\RootInc\LaravelSaml2Middleware\Saml2@saml2metadata');` First parameter can be whatever you want to route for the metadata.  * Change as you would like.
+
+* Note - if we change these values, it is important to see [Service Provider Options Override](#service-provider-options-override)
 
 ## Extended Installation
 
@@ -75,7 +87,21 @@ Route::get('/logout/saml2', '\App\Http\Middleware\AppSaml2@saml2logout');
 Route::post('/logout/logoutcallback', '\App\Http\Middleware\AppSaml2@logoutcallback');
 ```
 
+As of v0.2.0, if using the metadata route, we'll want to update to be:
+`Route::get('/saml2/metadata', '\App\Http\Middleware\AppSaml2@saml2metadata');`
+
 4. Finally, update `Kernel.php`'s `saml2` key to be `'saml2' => \App\Http\Middleware\AppSaml2::class,`
+
+## Service Provider Options Override
+
+As of v0.2.0, we added options for overriding the default behavior for the service provider.  The defaults should generally work well for our app.  However, configuration is always beneficial.  Here are those keys and their default values:
+
+* `SAML2_SP_NAME_ID_FORMAT` defaults to `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`
+* `SAML2_SP_ENTITY_ID` defaults to `url("/saml2/metadata")`
+* `SAML2_SP_SSO` defaults to `url("/login/saml2callback")`
+* `SAML2_SP_SLO` defaults to `url("/logout/saml2callback")`
+
+It's important that if we are not following the naming conventions of the readme, that we update these `SP` values.
 
 ## Other Extending Options
 
