@@ -34,7 +34,7 @@ Route::post('/login/saml2callback', '\RootInc\LaravelSaml2Middleware\Saml2@saml2
 
 ## Metadata
 
-As of of v0.2.0, we added the ability to get the metata.  Simply add:
+As of of v0.2.0, we added the ability to get the metadata.  Simply add:
 
 `Route::get('/saml2/metadata', '\RootInc\LaravelSaml2Middleware\Saml2@saml2metadata');` First parameter can be whatever you want to route for the metadata.  * Change as you would like.
 

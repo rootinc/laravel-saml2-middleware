@@ -308,7 +308,7 @@ class Saml2
             // e.g X-Forwarded-Proto / HTTP_X_FORWARDED_PROTO. This is useful if
             // your application is running behind a load balancer which terminates
             // SSL.
-            'proxyVars' => config('saml2.proxy_vars', true), //this is on Heroku, we can assume this to be true for all
+            'proxyVars' => config('saml2.proxy_vars', true), //if using Heroku, we WANT this to be true
 
             // Service Provider Data that we are deploying
             // NOTE - these are settings that should be set on the SP
@@ -319,7 +319,6 @@ class Saml2
                 // represent the requested subject.
                 // Take a look on lib/Saml2/Constants.php to see the NameIdFormat supported
                 'NameIDFormat' => config('saml2.sp.name_id_format', 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent'),
-                //'NameIDFormat' => config('saml2.sp_name_id_formats', url("/saml2/metadata")),
 
                 // Usually x509cert and privateKey of the SP are provided by files placed at
                 // the certs folder. But we can also provide them with the following parameters
