@@ -21,7 +21,7 @@ class Saml2
     public function __construct()
     {
         \OneLogin\Saml2\Utils::setProxyVars($this->getConfig()['proxyVars']);
-        \OneLogin\Saml2\Utils::setSelfPort( parse_url(config('app.url'), PHP_URL_SCHEME) === "https" ? 443 : 80 );
+        \OneLogin\Saml2\Utils::setSelfPort( parse_url(config('app.url'), PHP_URL_SCHEME) === "https" ? 443 : 80 ); //the inner package messes up on determining if the server is hosted via 443 or not (at least on Heroku).  We override the setting here.
     }
 
     /**
