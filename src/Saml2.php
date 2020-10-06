@@ -21,6 +21,7 @@ class Saml2
     public function __construct()
     {
         \OneLogin\Saml2\Utils::setProxyVars($this->getConfig()['proxyVars']);
+        \OneLogin\Saml2\Utils::setSelfPort( parse_url(config('app.url'), PHP_URL_SCHEME) === "https" ? 443 : 80 );
     }
 
     /**
