@@ -15,7 +15,7 @@ Route::post('/login/saml2callback', '\RootInc\LaravelSaml2Middleware\Saml2@saml2
 4. In our `App\Http\Kernel.php` add `'saml2' => \RootInc\LaravelSaml2Middleware\Saml2::class,` most likely to the `$routeMiddleware` array.
 5. In our `.env` optionally add `SAML2_STRICT, SAML2_SAML2_PROXY_VARS`.  If not added, these values will default to true.
 6. In our `.env` add `SAML2_IDP_ENTITYID, SAML2_IDP_SSO, SAML2_IDP_SLO and SAML2_IDP_x509`.
-7. In our `.env` optionally add `SAML2_SP_NAME_ID_FORMAT, SAML2_SP_ENTITY_ID, SAML2_SP_SSO, SAML2_SP_SLO`.  These values are only required to override if the default config does not suffice.
+7. In our `.env` optionally add `SAML2_SP_NAME_ID_FORMAT, SAML2_SP_ENTITY_ID, SAML2_SP_SSO, SAML2_SP_SLO, SAML2_SP_x509, SAML2_SP_PRIVATE_KEY`.  These values are only required to override if the default config does not suffice.
 8. In our `App\Http\Middleware\VerifyCsrfToken.php` add `'/login/saml2callback' //original saml2 didn't protect anything.  Since this is a POST for SAML2, the tokens will of course not match.  Thus, we need to ignore` to the `$except` array.
 9. Add the `saml2` middleware to your route groups on any routes that needs protected by auth and enjoy :tada:
 10. If you need custom callbacks, see [Extended Installation](#extended-installation).
@@ -100,8 +100,10 @@ As of v0.2.0, we added options for overriding the default behavior for the servi
 * `SAML2_SP_ENTITY_ID` defaults to `url("/saml2/metadata")`
 * `SAML2_SP_SSO` defaults to `url("/login/saml2callback")`
 * `SAML2_SP_SLO` defaults to `url("/logout/saml2callback")`
+* `SAML2_SP_x509` defaults to `""`
+* `SAML2_SP_PRIVATE_KEY` defaults to `""`
 
-It's important that if we are not following the naming conventions of the readme, that we update these `SP` values.
+It's important that if we are not following the naming conventions of the readme, that we update `SAML2_SP_ENTITY_ID, SAML2_SP_SSO, SAML2_SP_SLO` values.
 
 ## Other Extending Options
 
