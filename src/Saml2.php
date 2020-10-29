@@ -323,8 +323,8 @@ class Saml2
 
                 // Usually x509cert and privateKey of the SP are provided by files placed at
                 // the certs folder. But we can also provide them with the following parameters
-                'x509cert' => '',
-                'privateKey' => '',
+                'x509cert' => config('saml2.sp.x509', ''),
+                'privateKey' => config('saml2.sp.private_key', ''),
 
                 // Identifier (URI) of the SP entity.
                 // Leave blank to use the 'saml_metadata' route.
