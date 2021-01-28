@@ -311,8 +311,19 @@ class Saml2
             // SSL.
             'proxyVars' => config('saml2.proxy_vars', true), //if using Heroku, we WANT this to be true
 
-            // Service Provider Data that we are deploying
-            // NOTE - these are settings that should be set on the SP
+			'security' => [
+
+				// Authentication context.
+				// Set to false and no AuthContext will be sent in the AuthNRequest,
+				// Set true or don't present this parameter and you will get an AuthContext 'exact' 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport'
+				// Set an array with the possible auth context values: array('urn:oasis:names:tc:SAML:2.0:ac:classes:Password', 'urn:oasis:names:tc:SAML:2.0:ac:classes:X509'),
+				'requestedAuthnContext' => !is_string(env('SAML2_SECURITY_CONTEXT'))
+					? env('SAML2_SECURITY_CONTEXT', true)
+					: explode(',', env('SAML2_SECURITY_CONTEXT'))
+			],
+
+			// Service Provider Data that we are deploying
+			// NOTE - these are settings that should be set on the SP
             // We need to pass vars in for OneLoginAuth to work
             'sp' => [
 

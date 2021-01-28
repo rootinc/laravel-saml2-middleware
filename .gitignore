@@ -1,1 +1,4 @@
 /vendor/
+
+# IDE Junk
+.idea/
