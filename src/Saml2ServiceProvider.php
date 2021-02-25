@@ -17,13 +17,17 @@ class Saml2ServiceProvider extends ServiceProvider
         {
             $this->publishes([
                 __DIR__ . '/../config/saml2.php' => config_path('saml2.php'),
-            ], 'saml2-config');
+            ], 'config');
         }
-        else
-        {
-            $this->mergeConfigFrom(
-                __DIR__ . '/../config/saml2.php', 'saml2'
-            );
-        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/saml2.php', 'saml2'
+        );
     }
 }
