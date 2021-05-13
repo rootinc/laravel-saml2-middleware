@@ -4,6 +4,8 @@
 
 This is not a long term solution, merely a messy gross fix to bridge the gap.
 
+anyone else that stumbles across it: <a href='https://www.amitmerchant.com/how-to-pull-github-repositories-as-composer-packages-in-php/'>installation instructions</a>
+
 Provides Saml2 Authentication Middleware for a Laravel App.  If you like this, checkout <a href="https://github.com/rootinc/laravel-azure-middleware">Laravel Azure Middleware</a>
 
 ## Normal Installation
