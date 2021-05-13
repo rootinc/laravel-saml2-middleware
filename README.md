@@ -1,5 +1,9 @@
 # Laravel Saml2 Middleware
 
+## This fork only changes the upstream deps (OneLogin) to resolve <a href='https://github.com/onelogin/php-saml/issues/453'>libxml_disable_entity_loader() is deprecated</a> for PHP 8+
+
+This is not a long term solution, merely a messy gross fix to bridge the gap.
+
 Provides Saml2 Authentication Middleware for a Laravel App.  If you like this, checkout <a href="https://github.com/rootinc/laravel-azure-middleware">Laravel Azure Middleware</a>
 
 ## Normal Installation
