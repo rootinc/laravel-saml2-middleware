@@ -3,8 +3,8 @@
     "description": "Saml2 Middleware Auth",
     "type": "library",
     "require": {
-        "php": ">=8",
-        "laravel/framework": ">=8",
+        "php": ">=7.3",
+        "laravel/framework": ">=5.4.0",
         "onelogin/php-saml": "^4"
     },
     "license": "MIT",
@@ -14,8 +14,8 @@
         },
         {
             "name": "Lloyd Culpepper",
-            "email": "lloyd.culpepper@onlinehomeretai.co.uk",
-            "homepage": "https://lloydculpepper.com",
+            "email": "lloyd.culpepper@onlinehomeretail.co.uk",
+            "homepage": "https://lloydculpepper.uk",
             "role": "Forker"
         }
     ],
