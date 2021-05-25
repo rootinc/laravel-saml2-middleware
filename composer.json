@@ -3,15 +3,20 @@
     "description": "Saml2 Middleware Auth",
     "type": "library",
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.3",
         "laravel/framework": ">=5.4.0",
-        "onelogin/php-saml": "^3.3"
+        "onelogin/php-saml": "^4"
     },
     "license": "MIT",
-    "authors": [
-        {
+    "authors": [{
             "name": "Root Inc",
             "email": "djewett@rootinc.com"
+        },
+        {
+            "name": "Lloyd Culpepper",
+            "email": "lloyd.culpepper@onlinehomeretail.co.uk",
+            "homepage": "https://lloydculpepper.uk",
+            "role": "Forker"
         }
     ],
     "autoload": {
